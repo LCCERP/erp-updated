@@ -18,7 +18,22 @@ status
 openerp/filestore
 # maintenance migration scripts
 openerp/addons/base/maintenance
-
+setup.cfg
+requirements.txt
+openerp-wsgi.py
+openerp-gevent
+MANIFEST.in
+LICENSE
+Makefile
+debian/*
+doc/*
+MANIFEST.in/*
+openerp/*
+openerp-server
+README.md
+setup/*
+setup.py
+CONTRIBUTING.md
 # generated for windows installer?
 install/win32/*.bat
 install/win32/meta.py
