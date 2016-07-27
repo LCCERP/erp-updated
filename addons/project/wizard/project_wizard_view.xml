@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_project_wizard_id" model="ir.ui.view">
+            <field name="name">Project Bulk State Changes</field>
+            <field name="model">project.wizard.staterifts</field>
+            <field name="arch" type="xml">
+                <form string="Project Bulk State Changes">
+                    <group>
+                        <field name="name"/>
+                    </group>
+					<field name="project_taks_id"/>
+                    <footer>
+                        <button name="confirm_tasks" string="Tasks In Progress" type="object" class="oe_highlight"/>
+                        <button name="complete_tasks" string="Completed Tasks" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Confirm Tasks"
+		    res_model="project.wizard.staterifts"
+		    src_model="project.task"
+		    key2="client_action_multi" 
+		    view_mode="form" 
+		    target="new"
+		    id="action_project_wizard"/>
+
+    </data>
+</openerp>

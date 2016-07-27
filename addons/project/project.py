@@ -796,6 +796,9 @@ class task(osv.osv):
         'id': fields.integer('ID', readonly=True),
         'color': fields.integer('Color Index'),
         'user_email': fields.related('user_id', 'email', type='char', string='User Email', readonly=True),
+        'state':fields.selection([('Draft','Draft'),
+                                  ('In Progress','In Progress'),
+                                  ('Done','Done')],'State',required=True),
     }
     _defaults = {
         'stage_id': _get_default_stage_id,
@@ -804,6 +807,7 @@ class task(osv.osv):
         'kanban_state': 'normal',
         'priority': '0',
         'progress': 0,
+        'state':'Draft',
         'sequence': 10,
         'active': True,
         'reviewer_id': lambda obj, cr, uid, ctx=None: uid,
