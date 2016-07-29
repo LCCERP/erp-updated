@@ -546,14 +546,14 @@
                 	<field name="shipment_no" class="oe_inline" />            
 					<field name="name" string="SITE ID" />
                 	<field name="po_no" class="oe_inline" />
+					<field name="state"/>
 					<field name="po_line_no" class="oe_inline" />
-					<field name="huawei_project_name" class="oe_inline" />  
-                	<field name="province" class="oe_inline" />	
+					<field name="huawei_project_name" class="oe_inline" />
 					<field name="unit" class="oe_inline" />
 					<field name="unite_price" class="oe_inline" />
 					<field name="po_value" class="oe_inline" />
 					<field name="start_date" class="oe_inline" />
-					<field name="needed_by_date" class="oe_inline" />	
+					<field name="needed_by_date" class="oe_inline" />
 					<field name="date_deadline" string="Date Of Completion"/>
                 </tree>
             </field>
