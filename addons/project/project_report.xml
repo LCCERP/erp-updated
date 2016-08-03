@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+	<report	id="report_projects_completed_action"
+		string="Completed Projects"
+		model="project.task.custom"
+		report_type="qweb-pdf"
+		name="project.report_projects_completed_template"
+		/>
+
+</data>
+</openerp>

@@ -372,7 +372,6 @@
                     <div class="oe_right">
                         <field name="kanban_state" class="oe_inline" widget="kanban_state_selection"/>
                     </div>
-                    
                     <group>
                         <group>
 			    			<field name="name" String="SITE ID" class="oe_inline"/>
@@ -391,13 +390,13 @@
 						    <field name="start_date" class="oe_inline" />
 						    <field name="needed_by_date" class="oe_inline" />
 						    <field name="date_deadline" class="oe_inline" />
+							<field name="state"/>
                             <field name="progress" widget="progressbar" groups="project.group_time_work_estimation_tasks"/>
                         </group>
                     </group>
 		    <label for="remarks" string="Remarks"/>
 		    <field name="remarks" class="oe_inline" /> 
                     <notebook>
-			
                         <page string="Description Of Work">
                             <field name="description" placeholder="Add a Description..."/>
                             <field name="work_ids" groups="project.group_tasks_work_on_tasks">
@@ -469,7 +468,7 @@
             <field name="name">project.task.kanban</field>
             <field name="model">project.task</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="stage_id" >
+                <kanban default_group_by="state" >
                     <field name="color"/>
                     <field name="priority"/>
                     <field name="stage_id"/>
@@ -547,18 +546,15 @@
                 	<field name="shipment_no" class="oe_inline" />            
 					<field name="name" string="SITE ID" />
                 	<field name="po_no" class="oe_inline" />
+					<field name="state"/>
 					<field name="po_line_no" class="oe_inline" />
-					<field name="huawei_project_name" class="oe_inline" />  
-                	<field name="province" class="oe_inline" />	
-					<field name="description"  string="Description Of Work"/>
+					<field name="huawei_project_name" class="oe_inline" />
 					<field name="unit" class="oe_inline" />
 					<field name="unite_price" class="oe_inline" />
 					<field name="po_value" class="oe_inline" />
 					<field name="start_date" class="oe_inline" />
-					<field name="needed_by_date" class="oe_inline" />	
+					<field name="needed_by_date" class="oe_inline" />
 					<field name="date_deadline" string="Date Of Completion"/>
-					<field name="reviewer_id" string="Assigned By" options="{&quot;no_open&quot;: True}" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
-					<field name="remarks" class="oe_inline" />
                 </tree>
             </field>
         </record>
@@ -611,7 +607,7 @@
         <record id="action_view_task" model="ir.actions.act_window">
             <field name="name">Line Items</field>
             <field name="res_model">project.task</field>
-            <field name="view_mode">kanban,tree,form,calendar,gantt,graph</field>
+            <field name="view_mode">tree,kanban,form,calendar,gantt,graph</field>
             <field name="search_view_id" ref="view_task_search_form"/>
             <field name="help" type="html">
                 <p>
@@ -631,6 +627,77 @@
             <field name="view_mode">tree</field>
             <field name="act_window_id" ref="action_view_task"/>
         </record>
+
+		<!-- ########Custom Project Task for Reporting Purpose############ -->
+        <record id="view_project_task_custom_form" model="ir.ui.view">
+            <field name="name">project.task.custom.form</field>
+            <field name="model">project.task.custom</field>
+            <field name="arch" type="xml">
+                <form string="Project">
+                    <sheet string="Task">
+                    <group>
+                        <group>
+			    			<field name="name" String="SITE ID" class="oe_inline"/>
+			    			<field name="shipment_no" class="oe_inline" />
+						    <field name="po_no" class="oe_inline" select="1"/>  
+						    <field name="po_line_no" class="oe_inline" />  
+                            <field name="project_id"/>
+                            <field name="huawei_project_name" String="Huawei Project Name" class="oe_inline"/>
+                            <field name="province" class="oe_inline" />
+                            <field name="reviewer_id" String="Assigned By"/>
+                        </group>
+                        <group>
+						    <field name="unit" class="oe_inline" />
+						    <field name="unite_price" class="oe_inline" />
+						    <field name="po_value" class="oe_inline" />
+						    <field name="start_date" class="oe_inline" />
+						    <field name="needed_by_date" class="oe_inline" />
+						    <field name="date_deadline" class="oe_inline" />
+							<field name="state"/>
+                        </group>
+                    </group>
+					<label for="remarks" string="Remarks"/>
+					<field name="remarks" class="oe_inline" /> 
+                    <field name="description" placeholder="Add a Description..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_project_task_custom_tree" model="ir.ui.view">
+            <field name="name">project.task.custom.tree</field>
+            <field name="model">project.task.custom</field>
+            <field name="arch" type="xml">
+	            <tree string="Projects Completed">
+	    			<field name="name"/>
+	    			<field name="shipment_no"/>
+				    <field name="po_no"/>  
+				    <field name="po_line_no"/>  
+	                <field name="project_id"/>
+	                <field name="huawei_project_name"/>
+	                <field name="province"/>
+	                <field name="reviewer_id"/>
+				    <field name="unit"/>
+				    <field name="unite_price"/>
+				    <field name="po_value"/>
+				    <field name="start_date"/>
+				    <field name="needed_by_date"/>
+				    <field name="date_deadline"/>
+					<field name="state"/>
+					<field name="remarks"/> 
+	                <field name="description"/>
+				</tree>
+            </field>
+        </record>
+
+		<act_window	id="action_view_task_custom"
+			name="Projects Task Custom"
+			res_model="project.task.custom"
+			view_mode="tree,form"/>
+
+        <menuitem name="Acomplished Tasks" action="action_view_task_custom" id="menu_action_view_task_custom" parent="project.menu_project_management" sequence="10"/>
+
+		<!-- ########End of Custom Project Task Object############## -->
 
         <menuitem action="action_view_task" id="menu_action_view_task" parent="project.menu_project_management" sequence="5"/>
 

@@ -732,7 +732,8 @@ class task(osv.osv):
         'shipment_no': fields.integer('Shipment No', required=True),
         'project_id': fields.many2one('project.project', 'LCC Project Name', ondelete='set null', select=True, track_visibility='onchange', change_default=True),
         'huawei_project_name':fields.char('Huawei Project Name',    required=False),
-        'po_no': fields.many2one('project.issue', 'PO NO', ondelete='set null', select=True, track_visibility='onchange', change_default=True),
+        #'po_no': fields.many2one('project.issue', 'PO NO', ondelete='set null', select=True, track_visibility='onchange', change_default=True),
+        'po_no':fields.integer('PO No',required=True),
         'reviewer_id': fields.many2one('res.users', 'Assigned By', select=True, track_visibility='onchange'),
         'po_line_no': fields.integer('PO Line No', required=False),
         'province':fields.char('Province',    required=False),
@@ -796,6 +797,9 @@ class task(osv.osv):
         'id': fields.integer('ID', readonly=True),
         'color': fields.integer('Color Index'),
         'user_email': fields.related('user_id', 'email', type='char', string='User Email', readonly=True),
+        'state':fields.selection([('Draft','Draft'),
+                                  ('In Progress','In Progress'),
+                                  ('Done','Done')],'State',required=True),
     }
     _defaults = {
         'stage_id': _get_default_stage_id,
@@ -804,6 +808,7 @@ class task(osv.osv):
         'kanban_state': 'normal',
         'priority': '0',
         'progress': 0,
+        'state':'Draft',
         'sequence': 10,
         'active': True,
         'reviewer_id': lambda obj, cr, uid, ctx=None: uid,
@@ -1154,6 +1159,39 @@ class task(osv.osv):
                     except (ValueError, TypeError):
                         pass
         return super(task, self).message_update(cr, uid, ids, msg, update_vals=update_vals, context=context)
+
+class project_task_custom(osv.osv):
+
+    def create(self, cr, uid, vals, context=None):
+        if vals:
+            super(project_task_custom,self).create(cr, uid, vals, context=context)
+        return True
+    
+    _name = "project.task.custom"
+    _description = "Object Create for Reports Containing Entries in Done State Only"
+    _columns = {
+        'name': fields.char('SITE ID', track_visibility='onchange', size=128, required=True),
+        'shipment_no': fields.integer('Shipment No', required=True),
+        'project_id': fields.many2one('project.project', 'LCC Project Name'),
+        'huawei_project_name':fields.char('Huawei Project Name',    required=False),
+        'po_no':fields.integer('PO No',required=True),
+        'reviewer_id': fields.many2one('res.users', 'Assigned By'),
+        'po_line_no': fields.integer('PO Line No', required=False),
+        'province':fields.char('Province',    required=False),
+        'unit':fields.char('Unit',    required=False),
+        'unite_price': fields.integer('Unit Price', required=False),
+        'po_value': fields.integer('PO Value', required=False),
+        'start_date': fields.date('Start Date'),
+        'needed_by_date': fields.date('Needed By Date'),
+        'remarks': fields.text('Remarks'),
+        'description': fields.text('Description'),
+        'date_deadline': fields.date('Date Of Completion', select=True, copy=False),
+        'user_id': fields.many2one('res.users', 'Assigned to', select=True),
+        'state':fields.selection([('Draft','Draft'),
+                                  ('In Progress','In Progress'),
+                                  ('Done','Done')],'State',required=True),
+    }    
+project_task_custom()
 
 class project_work(osv.osv):
     _name = "project.task.work"
