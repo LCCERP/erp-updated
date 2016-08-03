@@ -12,7 +12,6 @@ class project_task_delegate(osv.osv_memory):
                 ids_list.append(idd.id)
             tasks_id = self.pool.get('project.task').search(cr, uid, [('id','in',ids_list),('state','=','Draft')], context=context)
             tasks_obj = self.pool.get('project.task').browse(cr, uid, tasks_id)
-            print tasks_obj
         for obj in tasks_obj:
             self.pool.get('project.task').write(cr,uid,obj.id,{'state':'In Progress'},context)
         return None
@@ -26,6 +25,26 @@ class project_task_delegate(osv.osv_memory):
             tasks_obj = self.pool.get('project.task').browse(cr, uid, tasks_id)
         for obj in tasks_obj:
             self.pool.get('project.task').write(cr,uid,obj.id,{'state':'Done'},context)
+            self.pool.get('project.task.custom').create(cr, uid, {
+                                                               'name':obj.name,
+                                                               'shipment_no': obj.shipment_no,
+                                                               'project_id':obj.project_id.id,
+                                                               'huawei_project_name': obj.huawei_project_name,
+                                                               'po_no': obj.po_no,
+                                                               'reviewer_id':obj.reviewer_id.id,
+                                                               'po_line_no':obj.po_line_no,
+                                                               'province':obj.province,
+                                                               'unit':obj.unit,
+                                                               'unite_price': obj.unite_price,
+                                                               'po_value':  obj.po_value,
+                                                               'start_date':  obj.start_date,
+                                                               'needed_by_date':obj.needed_by_date,
+                                                               'remarks': obj.remarks,
+                                                               'description': obj.description,
+                                                               'date_deadline': obj.date_deadline,
+                                                               'user_id': obj.user_id.id,
+                                                               'state': 'Done'
+                                                               },context=context)
         return None
     
     _name = 'project.wizard.staterifts'
