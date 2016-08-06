@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_project_wizard_invoiced_id" model="ir.ui.view">
+            <field name="name">Project Bulk State Invoiced</field>
+            <field name="model">project.wizard.staterifts.invoiced</field>
+            <field name="arch" type="xml">
+                <form string="Project State to Invoiced">
+					<group cols="4" colspan="2">
+						<field name="needed_by_date"/>
+						<field name="date_deadline"/>
+					</group>
+					<field name="project_taks_id"/>
+					<field name="remarks"/>
+                    <footer>
+                        <button name="invoiced_tasks" string="Make Invoice" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_project_wizard_invoiced" model="ir.actions.act_window">
+			<field name="name">Change State Invoiced</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.wizard.staterifts.invoiced</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_project_wizard_invoiced_id"/>
+        </record>
+
+        <menuitem action="action_project_wizard_invoiced" name="Invoiced" icon="STOCK_INDENT" parent="project.menu_invoicing_id" id="project_wizard_change_invoiced_id"/>
+
+    </data>
+</openerp>

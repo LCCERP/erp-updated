@@ -799,7 +799,9 @@ class task(osv.osv):
         'user_email': fields.related('user_id', 'email', type='char', string='User Email', readonly=True),
         'state':fields.selection([('Draft','Draft'),
                                   ('In Progress','In Progress'),
-                                  ('Done','Done')],'State',required=True),
+                                  ('Done','Done'),
+                                  ('Acceptance In Progress','Acceptance In Progress'),
+                                  ('Invoiced','Invoiced')],'State',required=True),
     }
     _defaults = {
         'stage_id': _get_default_stage_id,

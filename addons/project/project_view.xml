@@ -8,7 +8,7 @@
             groups="group_project_manager,group_project_user"
             sequence="40"/>
 
-        <menuitem name="Project"
+        <menuitem name="Projects and POs"
             id="menu_project_management"
             parent="base.menu_main_pm"
             sequence="1"/>
@@ -540,7 +540,7 @@
             <field name="model">project.task</field>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <tree fonts="bold:message_unread==True" colors="red:date_deadline and (date_deadline&lt;current_date)" string="Line Items">
+                <tree fonts="bold:message_unread==True" colors="blue:state=='Draft';grey:state=='In Progress';purple:state=='Done';orange:state=='Acceptance In Progress';green:state=='Invoiced'" string="Line Items">
                     <field name="message_unread" invisible="1"/>
 					<field name="sequence" invisible="not context.get('seq_visible', False)"/>
                 	<field name="shipment_no" class="oe_inline" />            
@@ -668,7 +668,7 @@
             <field name="name">project.task.custom.tree</field>
             <field name="model">project.task.custom</field>
             <field name="arch" type="xml">
-	            <tree string="Projects Completed">
+	            <tree string="Projects Completed" create="false" edit="false">
 	    			<field name="name"/>
 	    			<field name="shipment_no"/>
 				    <field name="po_no"/>  
@@ -695,7 +695,11 @@
 			res_model="project.task.custom"
 			view_mode="tree,form"/>
 
-        <menuitem name="Acomplished Tasks" action="action_view_task_custom" id="menu_action_view_task_custom" parent="project.menu_project_management" sequence="10"/>
+		<menuitem name="Operaional Activities" id="menu_operational_activity" parent="base.menu_main_pm" sequence="11"/>
+		<menuitem name="Acceptance in Progress" id="menu_acceptance_progress_id" parent="base.menu_main_pm" sequence="11"/>
+		<menuitem name="Invoicing" id="menu_invoicing_id" parent="base.menu_main_pm" sequence="11"/>
+
+        <menuitem name="Site Details" action="action_view_task_custom" parent="project.menu_project_management" id="menu_action_view_task_custom"  sequence="10"/>
 
 		<!-- ########End of Custom Project Task Object############## -->
 

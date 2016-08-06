@@ -6,27 +6,17 @@
             <field name="name">Project Bulk State Changes</field>
             <field name="model">project.wizard.staterifts</field>
             <field name="arch" type="xml">
-                <form string="Project Bulk State Changes">
+                <form string="Project Bulk State Changes" width="300" height="300">
 					<field name="project_taks_id"/>
                     <footer>
                         <button name="confirm_tasks" string="Tasks In Progress" type="object" class="oe_highlight"/>
-                        <button name="complete_tasks" string="Completed Tasks" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
         </record>
 
-		<!-- ALTERNATE METHOD TO DECLARE WIZARD VERSION 8  -->
-		<!--
-		<act_window name="Confirm Tasks"
-		    res_model="project.wizard.staterifts"
-		    src_model="project.task"
-		    view_mode="form"
-		    id="action_project_wizard"/>
-		-->
-
         <record id="action_project_wizard" model="ir.actions.act_window">
-			<field name="name">Change State</field>
+			<field name="name">Make Draft Items In Progress</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">project.wizard.staterifts</field>
             <field name="view_type">form</field>
@@ -35,7 +25,7 @@
             <field name="view_id" ref="view_project_wizard_id"/>
         </record>
 
-        <menuitem action="action_project_wizard" name="Change State" icon="STOCK_INDENT" parent="project.menu_project_management" id="project_wizard_state_change_id"/>
+        <menuitem action="action_project_wizard" name="In Progress" icon="STOCK_INDENT" parent="project.menu_operational_activity" id="project_wizard_state_change_inprogress_id"/>
 
     </data>
 </openerp>
