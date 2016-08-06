@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_project_wizard_acceptance_id" model="ir.ui.view">
+            <field name="name">Project Bulk State Acceptance</field>
+            <field name="model">project.wizard.staterifts.acceptance</field>
+            <field name="arch" type="xml">
+                <form string="Project State to Invoiced">
+					<field name="project_taks_id"/>
+                    <footer>
+                        <button name="accepted_tasks" string="Make Invoice" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_project_wizard_acceptance" model="ir.actions.act_window">
+			<field name="name">Acceptance In Progress</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.wizard.staterifts.acceptance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_project_wizard_acceptance_id"/>
+        </record>
+
+        <menuitem action="action_project_wizard_acceptance" name="Acceptance in Progress" icon="STOCK_INDENT" parent="project.menu_acceptance_progress_id" id="project_wizard_change_acceptance_id"/>
+
+    </data>
+</openerp>
