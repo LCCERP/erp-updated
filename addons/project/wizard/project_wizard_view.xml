@@ -6,7 +6,7 @@
             <field name="name">Project Bulk State Changes</field>
             <field name="model">project.wizard.staterifts</field>
             <field name="arch" type="xml">
-                <form string="Project Bulk State Changes" width="300" height="300">
+                <form string="Change State to In Progress" width="300" height="300">
 					<field name="project_taks_id"/>
                     <footer>
                         <button name="confirm_tasks" string="Tasks In Progress" type="object" class="oe_highlight"/>

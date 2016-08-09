@@ -9,7 +9,7 @@
                 <form string="Project State to Invoiced">
 					<field name="project_taks_id"/>
                     <footer>
-                        <button name="accepted_tasks" string="Make Invoice" type="object" class="oe_highlight"/>
+                        <button name="accepted_tasks" string="Accept Completed Tasks" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
